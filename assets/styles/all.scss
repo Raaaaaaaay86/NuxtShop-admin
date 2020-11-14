@@ -1,0 +1,26 @@
+*, html, body {
+  font-family: '微軟正黑體', 'Microsoft JhengHei', Arial, Helvetica, sans-serif;
+}
+
+.border {
+  border: 1px solid;
+  &--gray {
+    border-color: #BDBDBD;
+  }
+}
+
+.rounded {
+  border-radius: 10px;
+}
+
+.overflow {
+  &--hidden {
+    overflow: hidden;
+  }
+}
+
+.h {
+  &-100vh {
+    height: 100vh;
+  }
+}
