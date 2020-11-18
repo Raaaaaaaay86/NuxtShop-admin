@@ -66,33 +66,19 @@
     <v-main>
       <Nuxt />
     </v-main>
+    <Snackbar />
+    <Loader />
   </v-app>
 </template>
 
 <script>
+import Snackbar from '@/components/SnackBar';
+import Loader from '@/components/Loader';
+
 export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js',
-    };
+  components: {
+    Snackbar,
+    Loader,
   },
 };
 </script>

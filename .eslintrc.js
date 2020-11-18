@@ -17,5 +17,6 @@ module.exports = {
   // add your custom rules here
   rules: {
     'import/no-unresolved': 'off',
+    'max-len': 'off',
   },
 };
