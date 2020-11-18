@@ -1,11 +1,15 @@
 <template>
   <v-dialog
+    id="productModal"
     v-model="visible"
     persistent
     max-width="600px"
   >
     <v-card>
-      <ValidationObserver v-slot="{ invalid }">
+      <ValidationObserver
+        ref="observer"
+        v-slot="{ invalid }"
+      >
         <form>
           <v-card-title>
             <span class="headline">
@@ -211,7 +215,9 @@
 
 import {
   computed,
+  onUpdated,
   useContext,
+  ref,
 } from '@nuxtjs/composition-api';
 
 export default {
@@ -223,9 +229,17 @@ export default {
       }),
     },
   },
+/* eslint-disable */
   setup(props, { emit }) {
-    const { store } = useContext();
+    const { store, $vuetify } = useContext();
     const visible = computed(() => store.getters['productForm/visible']);
+    const observer = ref(null);
+
+    onUpdated(() => {
+      const productModal = document.getElementsByClassName('v-dialog');
+      productModal[0].scrollTop = 0;
+      observer.value.reset();
+    });
 
     const close = () => {
       store.commit('productForm/CLOSE');
@@ -283,6 +297,7 @@ export default {
       close,
       create,
       update,
+      observer,
       uploadImage,
     };
   },

@@ -11,6 +11,6 @@ VeeValidate.Validator.extend('numeric', {
   ...numeric,
   getMessage: (field) => `${field}只能為數字`,
 });
-
+Vue.use(VeeValidate);
 Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
 Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
