@@ -26,7 +26,7 @@
         </v-btn>
       </template>
     </v-data-table>
-    <ProductForm :product="editProduct" @updateUrl="updateUrl" />
+    <ProductForm :product.sync="editProduct" @updateUrl="updateUrl" />
   </div>
 </template>
 

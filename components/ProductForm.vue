@@ -280,12 +280,9 @@ export default {
         const newUrl = await store.dispatch('products/uploadImage', file);
         store.commit('loader/CLOSE');
 
-        if (!props.product.id) return emit('updateUrl', { newUrl });
+        // if (!props.product.id) return emit('updateUrl', { newUrl });
 
-        store.commit('products/UPDATE_IMAGE_URL', {
-          url: newUrl,
-          id: props.product.id,
-        });
+        props.product.imageUrl = newUrl;
         return true;
       } catch (error) {
         throw new Error(error);
