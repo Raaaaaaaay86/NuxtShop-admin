@@ -24,12 +24,7 @@ const mutations = {
     state.orderList = orders;
   },
   SET_EDIT_PRODUCT(state, { key, value }) {
-    console.log('mutate editOrder!');
     state.editProduct[key] = value;
-  },
-  SET_PRODUCT(state, payload) {
-    console.log('mutate editOrder 2!');
-    state.editProduct = payload;
   },
 };
 

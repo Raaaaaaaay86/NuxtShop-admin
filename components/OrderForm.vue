@@ -87,6 +87,21 @@
                         </template>
                       </v-edit-dialog>
                     </template>
+                    <template v-slot:item.final_total="props">
+                      <v-edit-dialog
+                        :return-value.sync="props.item.final_total"
+                      >
+                        {{ props.item.final_total }}
+                        <template v-slot:input>
+                          <v-text-field
+                            v-model="props.item.final_total"
+                            label="Edit"
+                            single-line
+                            counter
+                          />
+                        </template>
+                      </v-edit-dialog>
+                    </template>
                   </v-data-table>>
                 </v-col>
               </v-row>
@@ -128,14 +143,6 @@
               :disabled="invalid"
             >
               更新
-            </v-btn>
-            <v-btn
-              v-else
-              color="blue darken-1"
-              text
-              :disabled="invalid"
-            >
-              儲存
             </v-btn>
           </v-card-actions>
         </form>
@@ -187,6 +194,14 @@ export default {
 
       return array;
     });
+    const totalAmount = computed(() => {
+      let total = 0;
+      productList.value.forEach((product) => {
+        total += parseInt(product.final_total, 10);
+      });
+      order.value.total = total;
+      return total;
+    });
     const headers = reactive([
       {
         text: '編號',
@@ -232,6 +247,7 @@ export default {
 
     return {
       productList,
+      totalAmount,
       visible,
       headers,
       close,
