@@ -5,6 +5,7 @@ const apiPath = process.env.API_USER;
 
 const state = () => ({
   orderList: [],
+  editProduct: {},
 });
 
 const actions = {
@@ -22,11 +23,22 @@ const mutations = {
   SET_PAGE_ORDERS(state, orders) {
     state.orderList = orders;
   },
+  SET_EDIT_PRODUCT(state, { key, value }) {
+    console.log('mutate editOrder!');
+    state.editProduct[key] = value;
+  },
+  SET_PRODUCT(state, payload) {
+    console.log('mutate editOrder 2!');
+    state.editProduct = payload;
+  },
 };
 
 const getters = {
   orderList(state) {
     return state.orderList;
+  },
+  editProduct(state) {
+    return state.editProduct;
   },
 };
 
