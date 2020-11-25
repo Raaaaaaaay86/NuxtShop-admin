@@ -2,39 +2,73 @@
   <div class="pa-4">
     <v-data-table
       :headers="headers"
+      :items="orderList"
       class="elevation-1 mt-4"
       loading="true"
-    />
+    >
+      <template v-slot:item.create_at="{ item }">
+        <div>
+          {{ item.create_at | YYYYMMDD }}
+        </div>
+      </template>
+      <template v-slot:item.actions="{ }">
+        <v-btn icon small color="success" class="mr-2">
+          <v-icon>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+        <v-btn icon small color="error">
+          <v-icon>
+            mdi-delete
+          </v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
 <script>
+import {
+  computed,
+  onBeforeMount,
+  reactive,
+  useContext,
+} from '@nuxtjs/composition-api';
+
 export default {
-  data() {
+  setup() {
+    const { store } = useContext();
+    const headers = reactive([
+      {
+        text: '成立時間',
+        value: 'create_at',
+      },
+      {
+        text: '編號',
+        value: 'id',
+      },
+      {
+        text: '價格',
+        value: 'total',
+      },
+      {
+        text: '付款狀態',
+        value: 'is_paid',
+      },
+      {
+        text: '操作',
+        value: 'actions',
+      },
+    ]);
+    const orderList = computed(() => store.getters['orders/orderList']);
+
+    onBeforeMount(async () => {
+      await store.dispatch('orders/getPage');
+    });
+
     return {
-      headers: [
-        {
-          text: '成立時間',
-        },
-        {
-          text: '編號',
-        },
-        {
-          text: '訂單名稱',
-        },
-        {
-          text: '價格',
-        },
-        {
-          text: '付款方式',
-        },
-        {
-          text: '付款狀態',
-        },
-        {
-          text: '操作',
-        },
-      ],
+      orderList,
+      headers,
     };
   },
 };

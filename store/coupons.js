@@ -32,6 +32,10 @@ const actions = {
 
 const mutations = {
   SET_ALL_COUPONS(state, coupons) {
+    coupons.forEach((coupon) => {
+      const time = new Date(coupon.due_date);
+      coupon.due_date = `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`;
+    });
     state.coupons = coupons;
   },
 };

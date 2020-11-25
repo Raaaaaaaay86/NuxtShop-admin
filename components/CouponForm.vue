@@ -182,6 +182,11 @@ export default {
       default: () => ({}),
     },
   },
+  onMounted() {
+    const vm = this;
+    console.log('dddd');
+    console.log(vm.coupon);
+  },
   data() {
     return {
       menu: false,
@@ -199,10 +204,15 @@ export default {
     async create() {
       const vm = this;
       vm.close();
+      const couponData = { ...vm.coupon };
+      couponData.due_date = new Date(couponData.due_date).getTime();
       this.$store.dispatch('loader/open', { msg: '建立折扣券中' });
-      const success = await this.$store.dispatch('coupons/create', vm.coupon);
+      const success = await this.$store.dispatch('coupons/create', couponData);
 
-      if (!success) return this.$store.dispatch('snackbar/open', { msg: '建立折扣券失敗 請重新嘗試' });
+      if (!success) {
+        this.$store.dispatch('snackbar/open', { msg: '建立折扣券失敗 請重新嘗試' });
+        this.$store.commit('loader/CLOSE');
+      }
 
       await this.$store.dispatch('coupons/getPage');
       this.$store.commit('loader/CLOSE');

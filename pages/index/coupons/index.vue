@@ -33,9 +33,10 @@
 import CouponForm from '@/components/CouponForm';
 import {
   computed,
-  onBeforeMount,
+  // onBeforeMount,
   reactive,
   useContext,
+  useFetch,
   ref,
 } from '@nuxtjs/composition-api';
 
@@ -74,7 +75,7 @@ export default {
     const coupons = computed(() => store.getters['coupons/coupons']);
     const editCoupon = ref();
 
-    onBeforeMount(async () => {
+    useFetch(async () => {
       await store.dispatch('coupons/getPage');
     });
 
