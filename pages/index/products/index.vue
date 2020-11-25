@@ -25,6 +25,11 @@
           </v-icon>
         </v-btn>
       </template>
+      <template v-slot:item.is_enabled="{ item }">
+        <div>
+          {{ item.is_enabled ? '是' : '否' }}
+        </div>
+      </template>
     </v-data-table>
     <ProductForm :product.sync="editProduct" @updateUrl="updateUrl" />
   </div>

@@ -24,6 +24,11 @@
           </v-icon>
         </v-btn>
       </template>
+      <template v-slot:item.is_enabled="{ item }">
+        <div>
+          {{ item.is_enabled ? '是' : '否' }}
+        </div>
+      </template>
     </v-data-table>
     <CouponForm :coupon="editCoupon" />
   </div>
@@ -36,8 +41,8 @@ import {
   // onBeforeMount,
   reactive,
   useContext,
-  useFetch,
   ref,
+  onBeforeMount,
 } from '@nuxtjs/composition-api';
 
 export default {
@@ -75,7 +80,7 @@ export default {
     const coupons = computed(() => store.getters['coupons/coupons']);
     const editCoupon = ref();
 
-    useFetch(async () => {
+    onBeforeMount(async () => {
       await store.dispatch('coupons/getPage');
     });
 
