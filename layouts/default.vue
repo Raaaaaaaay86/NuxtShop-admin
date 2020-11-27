@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-navigation-drawer
+      v-model="drawer"
       app
       clipped
       color="blue-grey darken-3"
@@ -55,15 +56,12 @@
       app
       clipped-left
       fixed
-      color="grey lighten-5"
+      flat
+      color="blue-grey darken-3"
     >
-      <v-btn icon>
-        <v-icon>
-          mdi-menu
-        </v-icon>
-      </v-btn>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
     </v-app-bar>
-    <v-main>
+    <v-main class="grey lighten-2">
       <Nuxt />
     </v-main>
     <Snackbar />
@@ -74,11 +72,19 @@
 <script>
 import Snackbar from '@/components/SnackBar';
 import Loader from '@/components/Loader';
+import { ref } from '@nuxtjs/composition-api';
 
 export default {
   components: {
     Snackbar,
     Loader,
+  },
+  setup() {
+    const drawer = ref(true);
+
+    return {
+      drawer,
+    };
   },
 };
 </script>

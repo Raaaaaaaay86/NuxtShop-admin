@@ -1,21 +1,10 @@
 <template>
-  <v-dialog
-    id="orderModal"
-    v-model="visible"
-    persistent
-    fullscreen
-    max-width="600px"
-  >
+  <v-dialog id="orderModal" v-model="visible" persistent fullscreen max-width="600px">
     <v-card>
-      <ValidationObserver
-        ref="observer"
-        v-slot="{ invalid }"
-      >
+      <ValidationObserver ref="observer" v-slot="{ invalid }">
         <form>
           <v-card-title>
-            <span class="headline">
-              訂單資訊
-            </span>
+            <span class="headline"> 訂單資訊 </span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -55,50 +44,25 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-textarea
-                    v-model="order.message"
-                    outlined
-                    dense
-                    label="備註"
-                    background-color="grey lighten-3"
-                  />
+                  <v-textarea v-model="order.message" outlined dense label="備註" background-color="grey lighten-3" />
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-data-table
-                    :headers="headers"
-                    :items="productList"
-                    class="elevation-1 mt-4"
-                    loading="true"
-                  >
+                  <v-data-table :headers="headers" :items="productList" class="elevation-1 mt-4" loading="true">
                     <template v-slot:item.product.title="props">
-                      <v-edit-dialog
-                        :return-value.sync="props.item.product.title"
-                      >
+                      <v-edit-dialog :return-value.sync="props.item.product.title">
                         {{ props.item.product.title }}
                         <template v-slot:input>
-                          <v-text-field
-                            v-model="props.item.product.title"
-                            label="Edit"
-                            single-line
-                            counter
-                          />
+                          <v-text-field v-model="props.item.product.title" label="Edit" single-line counter />
                         </template>
                       </v-edit-dialog>
                     </template>
                     <template v-slot:item.final_total="props">
-                      <v-edit-dialog
-                        :return-value.sync="props.item.final_total"
-                      >
+                      <v-edit-dialog :return-value.sync="props.item.final_total">
                         {{ props.item.final_total }}
                         <template v-slot:input>
-                          <v-text-field
-                            v-model="props.item.final_total"
-                            label="Edit"
-                            single-line
-                            counter
-                          />
+                          <v-text-field v-model="props.item.final_total" label="Edit" single-line counter />
                         </template>
                       </v-edit-dialog>
                     </template>
@@ -107,20 +71,9 @@
               </v-row>
               <v-row>
                 <v-col cols="6">
-                  <v-radio-group
-                    v-model="order.is_paid"
-                    dense
-                    row
-                    label="是否付款"
-                  >
-                    <v-radio
-                      label="是"
-                      :value="true"
-                    />
-                    <v-radio
-                      label="否"
-                      :value="false"
-                    />
+                  <v-radio-group v-model="order.is_paid" dense row label="是否付款">
+                    <v-radio label="是" :value="true" />
+                    <v-radio label="否" :value="false" />
                   </v-radio-group>
                 </v-col>
               </v-row>
@@ -129,18 +82,14 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn
-              color="blue darken-1"
-              text
-              @click.prevent="close"
-            >
+            <v-btn color="blue darken-1" text @click.prevent="close">
               關閉
             </v-btn>
             <v-btn
-              v-if="order.id"
               color="blue darken-1"
               text
               :disabled="invalid"
+              @click.prevent="update"
             >
               更新
             </v-btn>
@@ -153,12 +102,7 @@
 
 <script>
 import {
-  computed,
-  reactive,
-  useContext,
-  ref,
-  watchEffect,
-  onUpdated,
+  computed, reactive, useContext, ref, watchEffect, onUpdated,
 } from '@nuxtjs/composition-api';
 
 export default {
@@ -214,10 +158,6 @@ export default {
       {
         text: '數量',
         value: 'qty',
-      },
-      {
-        text: '原價',
-        value: 'product.price',
       },
       {
         text: '應付金額',
