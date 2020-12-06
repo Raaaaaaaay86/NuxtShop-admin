@@ -13,7 +13,7 @@ const actions = {
         success,
         message,
         uid,
-      } = await this.$axios.$post('/admin/signin', usernameAndPassowrd);
+      } = await this.$axios.$post('/auth/signin', usernameAndPassowrd);
       if (!success) {
         commit('SET_ERROR_MESSAGE', message);
         return Promise.resolve(false);
@@ -26,9 +26,9 @@ const actions = {
     }
   },
   async signOut() {
-    await this.$axios.$post('/logout');
+    await this.$axios.$post('/auth/signout');
   },
-  async checkAuth() {
+  async checkAuth() { // undo
     await this.$axios.post('/api/user/check');
   },
 };

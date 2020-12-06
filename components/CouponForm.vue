@@ -182,11 +182,6 @@ export default {
       default: () => ({}),
     },
   },
-  onMounted() {
-    const vm = this;
-    console.log('dddd');
-    console.log(vm.coupon);
-  },
   data() {
     return {
       menu: false,
@@ -214,18 +209,23 @@ export default {
         this.$store.commit('loader/CLOSE');
       }
 
-      await this.$store.dispatch('coupons/getPage');
+      await this.$store.dispatch('coupons/getAll');
       this.$store.commit('loader/CLOSE');
       this.$store.dispatch('snackbar/open', { msg: '折扣券建立成功' });
       return true;
     },
     async update() {
       const vm = this;
-      const success = await this.$store.dispatch('coupons/update', vm.coupon);
+      const couponData = { ...vm.coupon };
+
+      couponData.due_date = new Date(couponData.due_date).getTime();
+      const success = await this.$store.dispatch('coupons/update', couponData);
+
       if (!success) return this.$store.dispatch('snackbar/open', { msg: '更新折扣券失敗 請重新嘗試' });
+
       this.$store.dispatch('snackbar/open', { msg: '折扣券更新成功' });
       vm.close();
-      this.$store.dispatch('coupons/getPage');
+      this.$store.dispatch('coupons/getAll');
       return true;
     },
   },

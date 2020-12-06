@@ -8,10 +8,13 @@ const state = () => ({
   edit: {},
 });
 const actions = {
-  async create(context, productInfo) {
+  async create(context, productInfo) { // ok
     try {
-      const { success } = await this.$axios.$post(`/api/${apiPath}/admin/product`, { data: { ...productInfo } });
+      const ress = await this.$axios.$post('/admin/product', { data: { ...productInfo } });
+      const { success } = ress;
+
       if (success) return Promise.resolve(true);
+
       return Promise.resolve(false);
     } catch (error) {
       return Promise.reject(new Error(error));
@@ -19,21 +22,21 @@ const actions = {
   },
   async update(context, productInfo) {
     const { id } = productInfo;
-    const { success } = await this.$axios.$put(`/api/${apiPath}/admin/product/${id}`, { data: { ...productInfo } });
+    const { success } = await this.$axios.$put(`/admin/product/${id}`, { data: { ...productInfo } });
     if (!success) return Promise.resolve(success);
     return Promise.resolve(success);
   },
   async delete(context, id) {
-    const { success } = await this.$axios.$delete(`/api/${apiPath}/admin/product/${id}`);
+    const { success } = await this.$axios.$delete(`admin/product/${id}`);
     if (success) return Promise.resolve(success);
     return Promise.resolve(success);
   },
   async getPage(context, { page }) {
     await this.$axios.$get(`/api/${apiPath}/admin/product?page=${page}`);
   },
-  async getAll({ commit }) {
+  async getAll({ commit }) { // ok
     try {
-      const { success, products } = await this.$axios.$get(`/api/${apiPath}/admin/products/all`);
+      const { success, products } = await this.$axios.$get('admin/product/all');
       if (success) {
         commit('SET_ALL_PRODUCTS', products);
         return Promise.resolve(true);

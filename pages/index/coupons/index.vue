@@ -81,7 +81,7 @@ export default {
     const editCoupon = ref();
 
     onBeforeMount(async () => {
-      await store.dispatch('coupons/getPage');
+      await store.dispatch('coupons/getAll');
     });
 
     const open = () => {
@@ -97,7 +97,7 @@ export default {
       store.dispatch('loader/open', { msg: '刪除中' });
       const success = await store.dispatch('coupons/delete', coupon.id);
       if (!success) return store.dispatch('snackbar/open', { msg: '刪除失敗 請重新嘗試' });
-      store.dispatch('coupons/getPage');
+      store.dispatch('coupons/getAll');
       store.dispatch('snackbar/open', { msg: '刪除成功' });
       store.commit('loader/CLOSE');
       return true;

@@ -150,7 +150,7 @@
                     rules="numeric|required"
                   >
                     <v-text-field
-                      v-model="product.originPrice"
+                      v-model="product.origin_price"
                       label="原價"
                       type="number"
                       prefix="$"

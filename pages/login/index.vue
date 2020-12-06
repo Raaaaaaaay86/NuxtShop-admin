@@ -44,7 +44,7 @@ export default {
     const errorMessage = computed(() => store.getters['auth/errorMessage']);
 
     const signin = async () => {
-      const success = await store.dispatch('auth/signin', { username: username.value, password: password.value });
+      const success = await store.dispatch('auth/signin', { email: username.value, password: password.value });
       if (success) return redirect('/products');
       return false;
     };
