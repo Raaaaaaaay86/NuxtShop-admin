@@ -18,6 +18,11 @@ const actions = {
     if (!success) return;
     commit('SET_PAGE_ORDERS', orders);
   },
+  async getAll({ commit }) {
+    const { success, orders } = await this.$axios.$get('/admin/order/all');
+    if (!success) return;
+    commit('SET_PAGE_ORDERS', orders);
+  },
 };
 
 const mutations = {

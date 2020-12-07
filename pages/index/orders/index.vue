@@ -70,7 +70,7 @@ export default {
     const editOrder = ref({});
 
     onBeforeMount(async () => {
-      await store.dispatch('orders/getPage');
+      await store.dispatch('orders/getAll');
     });
 
     const edit = (order) => {
