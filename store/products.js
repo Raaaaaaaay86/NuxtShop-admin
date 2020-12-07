@@ -47,15 +47,31 @@ const actions = {
       throw new Error(error);
     }
   },
+  // async uploadImage(context, file) {
+  //   try {
+  //     const headers = {
+  //       'Content-type': 'multipart/form-data',
+  //     };
+  //     const formData = new FormData();
+  //     formData.append('file-to-upload', file);
+
+  //     const { imageUrl } = await this.$axios.$post(`/api/${apiPath}/admin/upload`, formData, { headers });
+  //     return Promise.resolve(imageUrl);
+  //   } catch (error) {
+  //     return Promise.reject(new Error(error));
+  //   }
+  // },
+  /* eslint-disable */
   async uploadImage(context, file) {
     try {
       const headers = {
         'Content-type': 'multipart/form-data',
       };
       const formData = new FormData();
-      formData.append('file-to-upload', file);
-
-      const { imageUrl } = await this.$axios.$post(`/api/${apiPath}/admin/upload`, formData, { headers });
+      console.log(file);
+      formData.append('file', file, file.name);
+      const { imageUrl } = await this.$axios.$post(`http://localhost:5001/shop-admin-3bc87/us-central1/app/admin/product/uploadImage`, formData);
+      console.log(imageUrl);
       return Promise.resolve(imageUrl);
     } catch (error) {
       return Promise.reject(new Error(error));
@@ -71,7 +87,6 @@ const mutations = {
     state.edit = product;
   },
   UPDATE_EDIT(state, { child, value }) {
-    console.log(child, value);
     state.edit[child] = value;
   },
   UPDATE_IMAGE_URL(state, { id, url }) {
