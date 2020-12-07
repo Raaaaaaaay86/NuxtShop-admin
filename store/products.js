@@ -70,7 +70,7 @@ const actions = {
       const formData = new FormData();
       console.log(file);
       formData.append('file', file, file.name);
-      const { imageUrl } = await this.$axios.$post(`http://localhost:5001/shop-admin-3bc87/us-central1/app/admin/product/uploadImage`, formData);
+      const { imageUrl } = await this.$axios.$post(`/admin/product/uploadImage`, formData);
       console.log(imageUrl);
       return Promise.resolve(imageUrl);
     } catch (error) {

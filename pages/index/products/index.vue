@@ -67,7 +67,7 @@ export default {
       },
       {
         text: '價格',
-        value: 'originPrice',
+        value: 'origin_price',
       },
       {
         text: '是否上架',
