@@ -1,16 +1,16 @@
 import Vue from 'vue';
-import VeeValidate from 'vee-validate';
+import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
 import { required, numeric } from 'vee-validate/dist/rules';
 
-VeeValidate.Validator.extend('required', {
+extend('required', {
   ...required,
-  getMessage: (field) => `${field}不得為空`,
+  message: (field) => `${field}不得為空`,
 });
 
-VeeValidate.Validator.extend('numeric', {
+extend('numeric', {
   ...numeric,
-  getMessage: (field) => `${field}只能為數字`,
+  message: (field) => `${field}只能為數字`,
 });
-Vue.use(VeeValidate);
-Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
-Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
+
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider);

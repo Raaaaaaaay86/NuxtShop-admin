@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "js-cookie": "^2.2.1",
     "nuxt": "^2.14.6",
-    "vee-validate": "^2.2.15",
+    "vee-validate": "^3.0.4",
     "vue": "^2.6.12",
     "vuetify": "^2.3.17"
   },
